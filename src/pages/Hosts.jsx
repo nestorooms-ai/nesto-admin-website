@@ -344,7 +344,7 @@ const Hosts = () => {
               <button onClick={() => setPayoutModalHost(null)} className="text-gray-400 hover:text-white font-bold">✕</button>
             </div>
             <div className="p-4 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-sm text-indigo-300">
-              Host Balance: <strong>₹{((payoutModalHost.earning?.earning || 0) - (payoutModalHost.earning?.totalWithdrawal || 0))?.toLocaleString()}</strong>
+              Host Balance: <strong>₹{(payoutModalHost.earning?.earning || 0)?.toLocaleString()}</strong>
             </div>
             <div className="space-y-4">
               <div className="space-y-2">
