@@ -82,7 +82,7 @@ export async function updateEnvFile() {
 
 if (dopplerToken) {
   try {
-    // await updateEnvFile();
+    await updateEnvFile();
     console.log("[Prestart] Setup completed successfully!");
   } catch (err) {
     console.warn("[Prestart] Doppler secrets fetch failed. Continuing with existing local env files.", err.message || err);
