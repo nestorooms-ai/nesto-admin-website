@@ -59,6 +59,15 @@ const Properties = () => {
     }
   };
 
+  const handleToggleFeatured = async (id, currentFeatured) => {
+    try {
+      await api.put(`/api/admin/properties/${id}/status`, { featured: !currentFeatured });
+      fetchProperties();
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to update property featured status.');
+    }
+  };
+
   const filteredProperties = properties.filter((p) => {
     const term = search.toLowerCase();
     return (
@@ -134,29 +143,44 @@ const Properties = () => {
                       <span className={`px-2 py-1 text-xs font-semibold rounded-full ${prop.isActive ? 'bg-indigo-500/10 text-indigo-400' : 'bg-red-500/10 text-red-400'}`}>
                         {prop.isActive ? 'Active' : 'Disabled'}
                       </span>
+                      <span className={`px-2 py-1 text-xs font-semibold rounded-full border transition duration-200 ${prop.featured ? 'bg-yellow-500/15 border-yellow-500/30 text-yellow-400 animate-pulse' : 'bg-gray-500/10 border-gray-500/20 text-gray-500'}`}>
+                        {prop.featured ? 'Featured ★' : 'Standard'}
+                      </span>
                     </div>
                   </div>
                 </div>
-                <div className="p-6 border-t border-[#242f47] bg-[#151c2c]/40 flex items-center justify-between gap-3">
+                <div className="p-6 border-t border-[#242f47] bg-[#151c2c]/40 space-y-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <button
+                      onClick={() => handleToggleApproval(prop._id, prop.isApproved)}
+                      className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold border transition duration-200 ${
+                        prop.isApproved
+                          ? 'bg-amber-500/10 border-amber-500/30 text-amber-400 hover:bg-amber-500/20'
+                          : 'bg-green-500 border-green-600 text-white hover:bg-green-600'
+                      }`}
+                    >
+                      {prop.isApproved ? 'Revoke Approval' : 'Approve'}
+                    </button>
+                    <button
+                      onClick={() => handleToggleActive(prop._id, prop.isActive)}
+                      className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold border transition duration-200 ${
+                        prop.isActive
+                          ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
+                          : 'bg-indigo-500 border-indigo-600 text-white hover:bg-indigo-600'
+                      }`}
+                    >
+                      {prop.isActive ? 'Disable Listing' : 'Enable Listing'}
+                    </button>
+                  </div>
                   <button
-                    onClick={() => handleToggleApproval(prop._id, prop.isApproved)}
-                    className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold border transition duration-200 ${
-                      prop.isApproved
-                        ? 'bg-amber-500/10 border-amber-500/30 text-amber-400 hover:bg-amber-500/20'
-                        : 'bg-green-505 border-green-600 text-white hover:bg-green-600 bg-green-500'
+                    onClick={() => handleToggleFeatured(prop._id, prop.featured)}
+                    className={`w-full py-2 px-3 rounded-lg text-xs font-semibold border transition duration-200 ${
+                      prop.featured
+                        ? 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/20'
+                        : 'bg-yellow-500 hover:bg-yellow-600 border-yellow-600 text-slate-900 font-bold'
                     }`}
                   >
-                    {prop.isApproved ? 'Revoke Approval' : 'Approve'}
-                  </button>
-                  <button
-                    onClick={() => handleToggleActive(prop._id, prop.isActive)}
-                    className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold border transition duration-200 ${
-                      prop.isActive
-                        ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
-                        : 'bg-indigo-505 border-indigo-600 text-white hover:bg-indigo-600 bg-indigo-500'
-                    }`}
-                  >
-                    {prop.isActive ? 'Disable Listing' : 'Enable Listing'}
+                    {prop.featured ? 'Remove from Featured' : 'Mark as Featured ★'}
                   </button>
                 </div>
               </div>
