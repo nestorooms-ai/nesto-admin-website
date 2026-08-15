@@ -81,7 +81,7 @@ export async function updateEnvFile() {
 }
 
 if (dopplerToken) {
-  try {
+  try { 
     await updateEnvFile();
     console.log("[Prestart] Setup completed successfully!");
   } catch (err) {
