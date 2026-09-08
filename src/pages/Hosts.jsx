@@ -23,7 +23,7 @@ const getImageUrl = (imgUrl) => {
 const Hosts = () => {
   const [hosts, setHosts] = useState([]);
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); 
   const [error, setError] = useState('');
 
   // Modals state
