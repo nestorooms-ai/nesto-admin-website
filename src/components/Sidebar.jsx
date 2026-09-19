@@ -8,6 +8,9 @@ import {
   CalendarDays,
   Wallet,
   MessageSquare,
+  Compass,
+  MapPin,
+  Bell,
   LogOut
 } from 'lucide-react';
 import { useAdminStore } from '../store';
@@ -19,6 +22,9 @@ const Sidebar = () => {
 
   const menuItems = [
     { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+    { name: 'Notifications', path: '/notifications', icon: Bell },
+    { name: 'Itineraries', path: '/itineraries', icon: Compass },
+    { name: 'City Places', path: '/city-places', icon: MapPin },
     { name: 'Users', path: '/users', icon: Users },
     { name: 'Hosts', path: '/hosts', icon: UserCheck },
     { name: 'Properties', path: '/properties', icon: Home },
@@ -26,6 +32,7 @@ const Sidebar = () => {
     { name: 'Withdrawals', path: '/withdrawals', icon: Wallet },
     { name: 'Support Chat', path: '/chat', icon: MessageSquare },
   ];
+
 
   return (
     <div className={`w-64 bg-[#151c2c] border-r border-[#242f47] flex flex-col h-screen fixed left-0 top-0 text-gray-300 z-30 transition-transform duration-300 md:translate-x-0 ${

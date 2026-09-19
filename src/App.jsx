@@ -11,6 +11,9 @@ import Properties from './pages/Properties';
 import Bookings from './pages/Bookings';
 import Withdrawals from './pages/Withdrawals';
 import SupportChat from './pages/SupportChat';
+import Itineraries from './pages/Itineraries';
+import CityPlaces from './pages/CityPlaces';
+import Notifications from './pages/Notifications';
 
 // Protected layout containing Sidebar, Navbar and subpages
 const AdminLayout = ({ title }) => {
@@ -51,6 +54,12 @@ function App() {
         <Route element={<AdminLayout title="Dashboard" />}>
           <Route path="/" element={<Dashboard />} />
         </Route>
+        <Route element={<AdminLayout title="Itinerary Management" />}>
+          <Route path="/itineraries" element={<Itineraries />} />
+        </Route>
+        <Route element={<AdminLayout title="City Places & Guides" />}>
+          <Route path="/city-places" element={<CityPlaces />} />
+        </Route>
         <Route element={<AdminLayout title="Users Directory" />}>
           <Route path="/users" element={<Users />} />
         </Route>
@@ -68,6 +77,9 @@ function App() {
         </Route>
         <Route element={<AdminLayout title="Live Support Chat" />}>
           <Route path="/chat" element={<SupportChat />} />
+        </Route>
+        <Route element={<AdminLayout title="Push Notifications Broadcast" />}>
+          <Route path="/notifications" element={<Notifications />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
