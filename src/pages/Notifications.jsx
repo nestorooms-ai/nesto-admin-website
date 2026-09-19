@@ -29,6 +29,13 @@ const DEEP_LINK_PRESETS = [
   { label: '👤 Account / Profile', path: '/account' },
 ];
 
+const IMAGE_PRESETS = [
+  { label: '🏨 Luxury Hotel', url: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80' },
+  { label: '🏰 Jaipur Palace', url: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80' },
+  { label: '🏖️ Goa Resort', url: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80' },
+  { label: '🏔️ Mountain Stay', url: 'https://images.unsplash.com/photo-1502784444187-359ac186c5bb?auto=format&fit=crop&w=1200&q=80' },
+];
+
 export default function Notifications() {
   // Composer Form States
   const [targetAudience, setTargetAudience] = useState('both'); // 'user' | 'host' | 'both'
@@ -295,19 +302,49 @@ export default function Notifications() {
 
             {/* 4. Banner Image URL (Optional) */}
             <div>
-              <label className="block text-xs font-extrabold uppercase tracking-wider text-gray-400 mb-2 flex items-center gap-1.5">
-                <ImageIcon className="w-3.5 h-3.5 text-indigo-400" />
-                4. High-Resolution Banner Image URL (Optional)
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-xs font-extrabold uppercase tracking-wider text-gray-400 flex items-center gap-1.5">
+                  <ImageIcon className="w-3.5 h-3.5 text-indigo-400" />
+                  4. High-Resolution Banner Image URL (Optional)
+                </label>
+                {imageUrl && (
+                  <button
+                    type="button"
+                    onClick={() => setImageUrl('')}
+                    className="text-[10px] text-rose-400 hover:underline cursor-pointer"
+                  >
+                    Clear Image
+                  </button>
+                )}
+              </div>
+
+              {/* Presets */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2">
+                {IMAGE_PRESETS.map((preset) => (
+                  <button
+                    key={preset.url}
+                    type="button"
+                    onClick={() => setImageUrl(preset.url)}
+                    className={`px-2.5 py-1.5 rounded-xl border text-[11px] font-bold truncate transition cursor-pointer ${
+                      imageUrl === preset.url
+                        ? 'bg-indigo-600 text-white border-indigo-500'
+                        : 'bg-[#0b0f19] text-gray-400 border-[#242f47] hover:text-white'
+                    }`}
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+
               <input
                 type="url"
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="https://images.unsplash.com/photo-... (Big banner for lock screen)"
+                placeholder="https://images.unsplash.com/photo-... (Direct image link for big banner)"
                 className="w-full px-4 py-3 rounded-2xl bg-[#0b0f19] border border-[#242f47] text-white text-xs font-mono placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
               />
               <p className="text-[11px] text-gray-500 mt-1">
-                Supports JPG, PNG, WebP. Displayed as an expanded big picture preview on Android & iOS notification center.
+                Tip: Direct image URLs (JPG, PNG, WebP) display as a full expanded banner and thumbnail on Android & iOS devices.
               </p>
             </div>
 
